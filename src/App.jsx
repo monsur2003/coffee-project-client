@@ -1,11 +1,13 @@
 import { useLoaderData } from "react-router-dom";
+import Header from "./components/AddCoffee/Header/Header";
 
 function App() {
    const coffes = useLoaderData();
    console.log(coffes);
    return (
       <>
-         <h2 className="text-6xl text-purple-600">Hello yeaaaaaaaaaah world</h2>
+         <Header></Header>
+         <div>here is you coffe</div>
       </>
    );
 }
