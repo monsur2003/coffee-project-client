@@ -4,7 +4,7 @@ import CoffeCard from "./components/AddCoffee/CoffeesCard/CoffeCard";
 
 function App() {
    const coffees = useLoaderData();
-   console.log(coffes);
+
    return (
       <>
          <Header></Header>
