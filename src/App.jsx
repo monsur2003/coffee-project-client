@@ -1,13 +1,18 @@
 import { useLoaderData } from "react-router-dom";
 import Header from "./components/AddCoffee/Header/Header";
+import CoffeCard from "./components/AddCoffee/CoffeesCard/CoffeCard";
 
 function App() {
-   const coffes = useLoaderData();
+   const coffees = useLoaderData();
    console.log(coffes);
    return (
       <>
          <Header></Header>
-         <div>here is you coffe</div>
+         <div>
+            {coffees.map((coffee) => (
+               <CoffeCard key={coffee._id} coffee={coffee}></CoffeCard>
+            ))}
+         </div>
       </>
    );
 }
