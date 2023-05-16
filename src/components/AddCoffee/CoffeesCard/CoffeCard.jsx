@@ -1,16 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { FaBeer, FaEye, FaPen, FaRemoveFormat, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const CoffeCard = ({ coffee }) => {
    const {
       product,
       taste,
       cheif,
       photo,
+      _id,
       quantity,
       supplier,
       category,
       details,
    } = coffee;
+
+   const handleDelete = (id) => {
+      Swal.fire({
+         title: "Are you sure?",
+         text: "You won't be able to revert this!",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#3085d6",
+         cancelButtonColor: "#d33",
+         confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+         if (result.isConfirmed) {
+            fetch(`http://localhost:5000/coffee/${id}`, {
+               method: "DELETE",
+            })
+               .then((res) => res.json())
+               .then((data) => {
+                  console.log(data);
+                  if (data.deleteCount > 0) {
+                     Swal.fire(
+                        "Deleted!",
+                        "Your Coffee has been deleted.",
+                        "success"
+                     );
+                  }
+               });
+         }
+      });
+   };
    return (
       <div className="card py-4 card-side bg-base-100 shadow-xl">
          <figure>
@@ -27,10 +59,16 @@ const CoffeCard = ({ coffee }) => {
                <button className="btn btn-primary">
                   <FaEye className="text-[17px]" />
                </button>
-               <button className="btn btn-active">
-                  <FaPen className="text-[17px]"></FaPen>
-               </button>
-               <button className="btn btn-secondary">
+               <Link to={`/updateCoffee/${_id}`}>
+                  <button className="btn btn-active">
+                     <FaPen className="text-[17px]"></FaPen>
+                  </button>
+               </Link>
+               <button
+                  className="btn btn-secondary"
+                  onClick={() => {
+                     handleDelete(_id);
+                  }}>
                   <FaTrash className="text-[17px] text-red-500"></FaTrash>
                </button>
             </div>
