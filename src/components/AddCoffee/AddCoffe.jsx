@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from "sweetalert2";
 
 const AddCoffe = () => {
    const handleAdd = (event) => {
@@ -24,7 +25,25 @@ const AddCoffe = () => {
          category,
          details,
       };
-      console.log(products);
+      fetch("http://localhost:5000/coffee", {
+         method: "POST",
+         headers: {
+            "content-type": "application/json",
+         },
+         body: JSON.stringify(products),
+      })
+         .then((res) => res.json())
+         .then((data) => {
+            if (data.insertedId) {
+               Swal.fire({
+                  title: "Success",
+                  text: "Product added successfully",
+                  icon: "success",
+                  confirmButtonText: "Cool",
+               });
+               form.reset();
+            }
+         });
    };
 
    return (
