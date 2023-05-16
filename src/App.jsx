@@ -8,7 +8,7 @@ function App() {
    return (
       <>
          <Header></Header>
-         <div>
+         <div className="grid md:grid-cols-2 py-4 mt-4 gap-5 w-[80%] mx-auto">
             {coffees.map((coffee) => (
                <CoffeCard key={coffee._id} coffee={coffee}></CoffeCard>
             ))}
